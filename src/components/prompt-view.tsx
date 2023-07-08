@@ -1,6 +1,8 @@
 import { usePrompt } from '@/hooks/use-prompt';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import useSWR from 'swr';
+import { StarIcon as SolidStarIcon } from '@heroicons/react/24/solid';
 
 const PromptView = ({ id }) => {
 
@@ -34,7 +36,7 @@ const PromptView = ({ id }) => {
             })
         });
         const data = await res.json();
-        const { title, description, favorite, createdAt, lastModifiedAt} = data.data;
+        const { title, description, favorite, createdAt, lastModifiedAt } = data.data;
         setEditMode(false);
     };
 
@@ -63,7 +65,7 @@ const PromptView = ({ id }) => {
         setEditMode(false);
     };
 
-    
+
 
     if (editMode) {
         return (
@@ -96,7 +98,6 @@ const PromptView = ({ id }) => {
                     </div>
                     <button type="submit" className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 px-10 py-2 text-white">Submit</button>
                     <button onClick={handleCancel} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 px-10 py-2 text-white">Cancel</button>
-                    <button onClick={handleDelete} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 px-10 py-2 text-white">Delete</button>
                 </form>
             </div>
         );
@@ -104,12 +105,35 @@ const PromptView = ({ id }) => {
     }
 
     return (
-        <div className="mx-auto self-center w-full max-w-lg">
+        <div className="mx-auto self-center w-full max-w-2xl">
+            {
+                favorite
+                    ? <SolidStarIcon
+                        className="w-5 h-5 text-yellow-500 mr-1"
+                    />
+                    : null
+            }
             <h1 className="text-4xl font-medium">{title}</h1>
-            <p className="mt-3 text-stone-400">{description}</p>
-            <p className="mt-3 text-stone-400">{new Date(createdAt).toLocaleDateString()}</p>
-            <p className="mt-3 text-stone-400">{new Date(lastModifiedAt).toLocaleDateString()}</p>
-            <button onClick={() => handleEditmode(title, description)} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 px-10 py-2 text-white">Edit</button>
+            <div className="max-w-prose break-words">
+                <p className="mt-3 text-stone-400">{description}</p>
+            </div>
+            <p className="mt-3 text-stone-400">Created At: {new Date(createdAt).toLocaleDateString()}</p>
+            {
+                lastModifiedAt
+                    ? <p className="mt-3 text-stone-400">Last Modified At: {new Date(lastModifiedAt).toLocaleDateString()}</p>
+                    : null
+            }
+            <div className="mx-auto space-x-4">
+                <button onClick={() => handleEditmode(title, description)} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <PencilIcon className="h-5 w-5 inline-block mr-2" />
+                    <span>Edit</span>
+                </button>
+                <button onClick={handleDelete} className="mt-5 rounded-md bg-red-600 hover:bg-red-950 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <TrashIcon className="h-5 w-5 inline-block mr-2" />
+                    <span>Delete</span>
+                </button>
+            </div>
+
         </div>
     );
 };
