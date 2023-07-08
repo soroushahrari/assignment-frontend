@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { mutate } from "swr";
 
 const PromptForm = () => {
 
@@ -15,6 +16,7 @@ const PromptForm = () => {
         }).then((res) => {
             setTitle('');
             setDescription('');
+            mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
             return res.json();
         });
     };
