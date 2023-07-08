@@ -1,5 +1,5 @@
 'use client';
-import { StarIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, StarIcon } from '@heroicons/react/24/outline';
 import { StarIcon as SolidStarIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import PromptCard from './prompt-card';
@@ -17,7 +17,7 @@ const PromptsList = ({ onSelectedPromptChange }) => {
 
     const handlePromptClick = (event, id) => {
         event.preventDefault();
-        onSelectedPromptChange(id);
+        onSelectedPromptChange(event, id);
     };
 
 
@@ -67,9 +67,17 @@ const PromptsList = ({ onSelectedPromptChange }) => {
                     Favorites
                 </button>
             </nav>
-            <div className="h-screen pt-16 overflow-y-auto bg-white dark:bg-gray-900">
+            <div className="h-screen py-20 overflow-y-auto bg-white dark:bg-gray-900">
 
                 {renderList()}
+            </div>
+            <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-1/4 z-10 flex justify-center">
+                <button
+                    onClick={(e) => handlePromptClick(e, null)}
+                    className="rounded-md bg-sky-600 hover:bg-sky-950 font-bold py-2 px-4 w-full h-full m-4">
+                    <PlusIcon className="h-5 w-5 inline-block mr-2" />
+                    <span>New Prompt</span>
+                </button>
             </div>
         </div>
     );

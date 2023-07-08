@@ -8,17 +8,14 @@ import Image from 'next/image'
 import { useState } from 'react';
 
 export default function Home() {
-  const { prompts, isLoading, isError } = usePrompts();
 
   const [selectedPrompt, setSelectedPrompt] = useState(null);
 
   const onSelectedPromptChange = (event, id) => {
     event.preventDefault();
-    setSelectedPrompt(event, id);
+    setSelectedPrompt(id);
   };
 
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error</div>
   return (
     <aside className="flex bg-gradient-to-r from-indigo-950 ...">
       <PromptsList onSelectedPromptChange={onSelectedPromptChange} />
