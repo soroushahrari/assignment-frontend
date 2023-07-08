@@ -1,8 +1,8 @@
 import { usePrompt } from '@/hooks/use-prompt';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon,  } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { StarIcon as SolidStarIcon } from '@heroicons/react/24/solid';
+import { PlusCircleIcon, StarIcon as SolidStarIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
 const PromptView = ({ id }) => {
 
@@ -70,8 +70,8 @@ const PromptView = ({ id }) => {
     if (editMode) {
         return (
             <div className="mx-auto self-center w-full max-w-lg">
-                <h1 className="text-4xl font-medium">New prompt</h1>
-                <p className="mt-3 text-stone-400">Fill the fields below and create a new prompt</p>
+                <h1 className="text-4xl font-medium">Edit prompt</h1>
+                <p className="mt-3 text-stone-400">Edit the prompt by changing the fields below</p>
                 <form onSubmit={handleSubmit} className="mt-10">
                     <div className="grid gap-6 sm:grid-cols-2">
                         <div className="relative z-0">
@@ -96,9 +96,18 @@ const PromptView = ({ id }) => {
                             <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-sky-600 peer-focus:dark:text-sky-500">Description</label>
                         </div>
                     </div>
-                    <button type="submit" className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 px-10 py-2 text-white">Submit</button>
-                    <button onClick={handleCancel} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 px-10 py-2 text-white">Cancel</button>
+                    <div className="mx-auto space-x-4">
+                        <button type="submit" className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 py-2 px-4 rounded inline-flex items-center">
+                            <PlusCircleIcon className="w-5 h-5 text-white mr-1" />
+                            <span>Create</span>
+                            </button>
+                        <button onClick={handleCancel} className="mt-5 rounded-md outline outline-offset-0 outline-1 hover:bg-gray-600 py-2 px-4 rounded inline-flex items-center">
+                            <XCircleIcon className="w-5 h-5 text-white mr-1" />
+                            <span>Cancel</span>
+                            </button>
+                    </div>
                 </form>
+
             </div>
         );
 
