@@ -1,11 +1,12 @@
 'use client';
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftOnRectangleIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import PromptCard from './prompt-card';
 import { usePrompts } from '@/hooks/use-prompts';
+import { signOut } from 'next-auth/react';
 
-const PromptsList = ({ onSelectedPromptChange }: any) => {
-    const { prompts, isLoading, isError } = usePrompts();
+const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
+    const { prompts, isLoading, isError } = usePrompts({ accessToken});
 
     const [selectedTab, setSelectedTab] = useState('all');
 
@@ -19,6 +20,12 @@ const PromptsList = ({ onSelectedPromptChange }: any) => {
         onSelectedPromptChange(event, id);
     };
 
+    const handleLogout = async (event: any) => {
+        event.preventDefault();
+
+        await signOut({ redirect: false, callbackUrl: '/' });
+    };
+
 
     const renderList = () => {
         if (selectedTab === 'all') {
@@ -27,6 +34,7 @@ const PromptsList = ({ onSelectedPromptChange }: any) => {
                     <PromptCard
                         key={prompt.id}
                         onClick={(e: any) => handlePromptClick(e, prompt.id)}
+                        accessToken={accessToken}
                         {...prompt}
                     />
                 )
@@ -37,6 +45,7 @@ const PromptsList = ({ onSelectedPromptChange }: any) => {
                     <PromptCard
                         key={prompt.id}
                         onClick={(e: any) => handlePromptClick(e, prompt.id)}
+                        accessToken={accessToken}
                         {...prompt}
                     />
                 )
@@ -72,9 +81,15 @@ const PromptsList = ({ onSelectedPromptChange }: any) => {
             </div>
             <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-1/4 z-10 flex justify-center">
                 <button
+                onClick={(e) => handleLogout(e)}
+                className="rounded-md bg-sky-transparent hover:bg-sky-950 font-bold py-2 px-2 w-1/4 h-full m-4 ml-2"
+                >
+                <ArrowLeftOnRectangleIcon className="h-5 w-5 inline-block mr-2" />
+                </button>
+                <button
                     onClick={(e) => handlePromptClick(e, null)}
-                    className="rounded-md bg-sky-600 hover:bg-sky-950 font-bold py-2 px-4 w-full h-full m-4">
-                    <PlusIcon className="h-5 w-5 inline-block mr-2" />
+                    className="rounded-md bg-sky-600 hover:bg-sky-950 font-bold py-2 px-2 w-11/12 h-full m-4 ml-2">
+                    <PlusIcon className="h-5 w-5 inline-block m-auto" />
                     <span>New Prompt</span>
                 </button>
             </div>

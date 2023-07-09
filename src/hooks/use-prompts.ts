@@ -1,13 +1,18 @@
 'use client';
+import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = (url: string, accessToken: string) => fetch(url, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+    }
+}).then((res) => res.json());
 
-console.log('process.env.NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL)
+export function usePrompts(props: any) {
 
-export function usePrompts() {
-    const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/prompt`, fetcher);
-    
+    const { data, error, isLoading } = useSWR([`${process.env.NEXT_PUBLIC_API_URL}/prompt`, props.accessToken], ([url, token]) => fetcher(url, token))
+
     return {
         prompts: data,
         isLoading,

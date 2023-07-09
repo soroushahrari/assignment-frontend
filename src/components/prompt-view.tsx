@@ -2,10 +2,11 @@ import { usePrompt } from '@/hooks/use-prompt';
 import { PencilIcon, TrashIcon,  } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { PlusCircleIcon, StarIcon as SolidStarIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { mutate } from 'swr';
 
-const PromptView = ({ id }: any) => {
+const PromptView = ({ id, accessToken }: any) => {
 
-    const { prompt, isLoading, isError } = usePrompt(id);
+    const { prompt, isLoading, isError } = usePrompt({ id, accessToken });
 
     const [editMode, setEditMode] = useState(false);
     const [newTitle, setNewtitle] = useState('');
@@ -27,15 +28,16 @@ const PromptView = ({ id }: any) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt/${id}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({
                 title: newTitle,
                 description: newDescription
             })
         });
-        const data = await res.json();
-        const { title, description, favorite, createdAt, lastModifiedAt } = data.data;
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
+        await res.json();
         setEditMode(false);
     };
 
@@ -59,8 +61,8 @@ const PromptView = ({ id }: any) => {
                 'Content-Type': 'application/json'
             }
         });
-        const data = await res.json();
-        console.log(data);
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
+        await res.json();
         setEditMode(false);
     };
 
