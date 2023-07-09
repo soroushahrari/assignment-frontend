@@ -7,7 +7,6 @@ const PromptForm = () => {
     const [description, setDescription] = useState('');
 
     const handleSubmit = (event: any) => {
-        console.log(title, description)
         event.preventDefault();
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt`, {
             method: 'POST',

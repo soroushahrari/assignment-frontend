@@ -60,7 +60,6 @@ const PromptView = ({ id }: any) => {
             }
         });
         const data = await res.json();
-        console.log(data);
         setEditMode(false);
     };
 

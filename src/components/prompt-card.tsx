@@ -27,7 +27,6 @@ const PromptCard = (props: any) => {
             })
         });
         const data = await res.json();
-        console.log(data);
     };
 
 
