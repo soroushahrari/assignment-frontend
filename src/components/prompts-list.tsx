@@ -4,8 +4,8 @@ import { useState } from 'react';
 import PromptCard from './prompt-card';
 import { usePrompts } from '@/hooks/use-prompts';
 
-const PromptsList = ({ onSelectedPromptChange }: any) => {
-    const { prompts, isLoading, isError } = usePrompts();
+const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
+    const { prompts, isLoading, isError } = usePrompts({ accessToken});
 
     const [selectedTab, setSelectedTab] = useState('all');
 
@@ -27,6 +27,7 @@ const PromptsList = ({ onSelectedPromptChange }: any) => {
                     <PromptCard
                         key={prompt.id}
                         onClick={(e: any) => handlePromptClick(e, prompt.id)}
+                        accessToken={accessToken}
                         {...prompt}
                     />
                 )
@@ -37,6 +38,7 @@ const PromptsList = ({ onSelectedPromptChange }: any) => {
                     <PromptCard
                         key={prompt.id}
                         onClick={(e: any) => handlePromptClick(e, prompt.id)}
+                        accessToken={accessToken}
                         {...prompt}
                     />
                 )

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { mutate } from "swr";
 
-const PromptForm = () => {
-
+const PromptForm = (props: any) => {
+    const { accessToken } = props;
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
@@ -10,7 +10,10 @@ const PromptForm = () => {
         event.preventDefault();
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
             body: JSON.stringify({ title, description }),
         }).then((res) => {
             setTitle('');
