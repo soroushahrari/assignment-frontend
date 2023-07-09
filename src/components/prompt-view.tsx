@@ -1,10 +1,9 @@
 import { usePrompt } from '@/hooks/use-prompt';
 import { PencilIcon, TrashIcon,  } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import useSWR from 'swr';
 import { PlusCircleIcon, StarIcon as SolidStarIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
-const PromptView = ({ id }) => {
+const PromptView = ({ id }: any) => {
 
     const { prompt, isLoading, isError } = usePrompt(id);
 
@@ -87,7 +86,7 @@ const PromptView = ({ id }) => {
                         <div className="relative z-0 col-span-2">
                             <textarea
                                 name="newDescription"
-                                rows="5"
+                                rows={5}
                                 required
                                 onChange={(e) => setNewDescription(e.target.value)}
                                 defaultValue={description}

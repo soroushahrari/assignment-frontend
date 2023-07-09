@@ -40,7 +40,7 @@ const PromptForm = () => {
                     <div className="relative z-0 col-span-2">
                         <textarea
                             name="description"
-                            rows="5"
+                            rows={5}
                             required
                             onChange={(e) => setDescription(e.target.value)}
                             value={description}

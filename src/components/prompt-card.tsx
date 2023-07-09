@@ -2,7 +2,7 @@ import { StarIcon } from '@heroicons/react/24/outline';
 import { StarIcon as SolidStarIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 
-const PromptCard = (props) => {
+const PromptCard = (props: any) => {
     const { id, title, description, createdAt, lastModifiedAt, favorite, onClick } = props;
 
     const [isHovered, setIsHovered] = useState(false);
@@ -15,7 +15,7 @@ const PromptCard = (props) => {
         setIsHovered(false);
     };
 
-    const handleFavorite = async (event) => {
+    const handleFavorite = async (event: any) => {
         event.preventDefault();
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt/${id}`, {
             method: 'PATCH',

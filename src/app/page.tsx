@@ -1,17 +1,14 @@
 'use client';
-import PromptCard from '@/components/prompt-card';
 import PromptForm from '@/components/prompt-form';
 import PromptView from '@/components/prompt-view';
 import PromptsList from '@/components/prompts-list';
-import { usePrompts } from '@/hooks/use-prompts'
-import Image from 'next/image'
 import { useState } from 'react';
 
 export default function Home() {
 
   const [selectedPrompt, setSelectedPrompt] = useState(null);
 
-  const onSelectedPromptChange = (event, id) => {
+  const onSelectedPromptChange = (event: any, id: any) => {
     event.preventDefault();
     setSelectedPrompt(id);
   };

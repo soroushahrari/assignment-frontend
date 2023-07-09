@@ -1,21 +1,20 @@
 'use client';
-import { PlusIcon, StarIcon } from '@heroicons/react/24/outline';
-import { StarIcon as SolidStarIcon } from '@heroicons/react/24/solid';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import PromptCard from './prompt-card';
 import { usePrompts } from '@/hooks/use-prompts';
 
-const PromptsList = ({ onSelectedPromptChange }) => {
+const PromptsList = ({ onSelectedPromptChange }: any) => {
     const { prompts, isLoading, isError } = usePrompts();
 
     const [selectedTab, setSelectedTab] = useState('all');
 
-    const handleTabChange = (event, value) => {
+    const handleTabChange = (event: any, value: string) => {
         event.preventDefault();
         setSelectedTab(value);
     };
 
-    const handlePromptClick = (event, id) => {
+    const handlePromptClick = (event: any, id: string | null) => {
         event.preventDefault();
         onSelectedPromptChange(event, id);
     };
@@ -23,21 +22,21 @@ const PromptsList = ({ onSelectedPromptChange }) => {
 
     const renderList = () => {
         if (selectedTab === 'all') {
-            return prompts.data.map((prompt) => {
+            return prompts.data.map((prompt: any) => {
                 return (
                     <PromptCard
                         key={prompt.id}
-                        onClick={(e) => handlePromptClick(e, prompt.id)}
+                        onClick={(e: any) => handlePromptClick(e, prompt.id)}
                         {...prompt}
                     />
                 )
             });
         } else {
-            return prompts.data.filter((prompt) => prompt.favorite).map((prompt) => {
+            return prompts.data.filter((prompt: any) => prompt.favorite).map((prompt: any) => {
                 return (
                     <PromptCard
                         key={prompt.id}
-                        onClick={(e) => handlePromptClick(e, prompt.id)}
+                        onClick={(e: any) => handlePromptClick(e, prompt.id)}
                         {...prompt}
                     />
                 )
