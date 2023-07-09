@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend README
 
-## Getting Started
+This README provides an overview of the frontend implementation for the prompt management application. It covers the technologies used, installation instructions, project structure, and additional details about the application.
 
-First, run the development server:
+## Technologies Used
+- **Next.js**: I chose Next.js for its ease of use and my limited prior experience with the framework. Next.js provides benefits such as server-side rendering, simplified routing, and efficient performance.
+- **NextAuth**: NextAuth is used for authentication in the frontend application. It simplifies the implementation of authentication flows, including various providers and session management, reducing the development time and effort required for authentication.
+- **Tailwind CSS**: I utilized Tailwind CSS for its utility-first approach, which makes styling and UI design easier and more efficient.
+- **SWR**: SWR is a React data fetching library that simplifies data fetching and caching. I used SWR to handle data fetching from APIs, as it provides automatic caching, revalidation, and error handling.
 
+
+## Installation
+1. Clone the repository: 
+```bash
+git clone https://github.com/soroushahrari/assignment-frontend.git
+```
+2. Install dependencies: 
+```bash
+npm install
+```
+3. Rename the `.env.example` file to `.env.local` and update the necessary environment variables for NextAuth configuration.
+4. Start the development server: 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
+The project structure is organized as follows:
+- `/app`: Contains the main application files.
+- `/components`: Contains React components used throughout the application.
+- `/hooks`: Contains custom hooks used for data fetching.
+- `/interfaces`: Contains TypeScript interfaces used for defining data structures.
+- `/providers`: Contains providers used for integrating NextAuth into the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Deployment
+The frontend application is deployed on Vercel. The application can be accessed at [Frontend Application](https://assignment-frontend-amber.vercel.app/login).
