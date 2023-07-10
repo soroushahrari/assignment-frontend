@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/react';
 import Loading from './loading';
 
 const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
-    const { prompts, isLoading, isError } = usePrompts({ accessToken});
+    const { prompts, isLoading, isError } = usePrompts({ accessToken });
 
     const [selectedTab, setSelectedTab] = useState('all');
 
@@ -30,6 +30,14 @@ const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
 
     const renderList = () => {
         if (selectedTab === 'all') {
+
+            if (prompts.data.length === 0) return (
+                <div className="flex flex-col items-center justify-center space-y-2">
+                    <p className="text-gray-400 text-xl">No prompts yet</p>
+                    <p className="text-gray-400 text-xl">Fill out the form to add one</p>
+                </div>
+            );
+
             return prompts.data.map((prompt: any) => {
                 return (
                     <PromptCard
@@ -41,7 +49,15 @@ const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
                 )
             });
         } else {
-            return prompts.data.filter((prompt: any) => prompt.favorite).map((prompt: any) => {
+            const favoritePrompts = prompts.data.filter((prompt: any) => prompt.favorite);
+
+            if (favoritePrompts.length === 0) return (
+                <div className="flex flex-col items-center justify-center space-y-2">
+                    <p className="text-gray-400 text-xl">No favorite prompts yet</p>
+                    <p className="text-gray-400 text-xl">Click the star to add one</p>
+                </div>
+            );
+            return favoritePrompts.map((prompt: any) => {
                 return (
                     <PromptCard
                         key={prompt.id}
@@ -82,10 +98,10 @@ const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
             </div>
             <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-1/4 z-10 flex justify-center space-10">
                 <button
-                onClick={(e) => handleLogout(e)}
-                className="rounded-md bg-sky-transparent hover:bg-sky-950 font-bold py-2 px-2 w-2/12 h-full my-4 ml-4"
+                    onClick={(e) => handleLogout(e)}
+                    className="rounded-md bg-sky-transparent hover:bg-sky-950 font-bold py-2 px-2 w-2/12 h-full my-4 ml-4"
                 >
-                <ArrowLeftOnRectangleIcon className="h-5 w-5 inline-block mx-auto" />
+                    <ArrowLeftOnRectangleIcon className="h-5 w-5 inline-block mx-auto" />
                 </button>
                 <button
                     onClick={(e) => handlePromptClick(e, null)}
