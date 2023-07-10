@@ -79,17 +79,17 @@ const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
 
                 {renderList()}
             </div>
-            <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-1/4 z-10 flex justify-center">
+            <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-1/4 z-10 flex justify-center space-10">
                 <button
                 onClick={(e) => handleLogout(e)}
-                className="rounded-md bg-sky-transparent hover:bg-sky-950 font-bold py-2 px-2 w-1/4 h-full m-4 ml-2"
+                className="rounded-md bg-sky-transparent hover:bg-sky-950 font-bold py-2 px-2 w-2/12 h-full my-4 ml-4"
                 >
-                <ArrowLeftOnRectangleIcon className="h-5 w-5 inline-block mr-2" />
+                <ArrowLeftOnRectangleIcon className="h-5 w-5 inline-block mx-auto" />
                 </button>
                 <button
                     onClick={(e) => handlePromptClick(e, null)}
-                    className="rounded-md bg-sky-600 hover:bg-sky-950 font-bold py-2 px-2 w-11/12 h-full m-4 ml-2">
-                    <PlusIcon className="h-5 w-5 inline-block m-auto" />
+                    className="rounded-md bg-sky-600 hover:bg-sky-950 py-2 px-2 w-10/12 h-full m-4 ml-2">
+                    <PlusIcon className="h-5 w-5 inline-block m-auto mr-2" />
                     <span>New Prompt</span>
                 </button>
             </div>
