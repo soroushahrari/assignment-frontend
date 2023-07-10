@@ -18,7 +18,7 @@ const handler = NextAuth({
                     password: credentials?.password
                 }
 
-                const res = await fetch('http://localhost:3500/auth/login', {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
                     method: 'POST',
                     body: JSON.stringify(payload),
                     headers: {
@@ -54,7 +54,7 @@ const handler = NextAuth({
                     password: credentials?.password
                 }
 
-                const res = await fetch('http://localhost:3500/auth/signup', {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
                     method: 'POST',
                     body: JSON.stringify(payload),
                     headers: {
