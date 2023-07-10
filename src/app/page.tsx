@@ -35,7 +35,11 @@ export default function Home(props: any) {
     <aside className="flex bg-gradient-to-r from-indigo-950 ...">
       <PromptsList onSelectedPromptChange={onSelectedPromptChange} accessToken={session.accessToken} />
       {selectedPrompt != null
-        ? <PromptView id={selectedPrompt} accessToken={session.accessToken} />
+        ? <PromptView 
+        id={selectedPrompt} 
+        accessToken={session.accessToken} 
+        onSelectedPromptChange={onSelectedPromptChange}
+        />
         : <PromptForm accessToken={session.accessToken}/>
       }
     </aside>

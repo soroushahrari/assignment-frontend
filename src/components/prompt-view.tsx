@@ -1,10 +1,10 @@
 import { usePrompt } from '@/hooks/use-prompt';
 import { PencilIcon, TrashIcon,  } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { PlusCircleIcon, StarIcon as SolidStarIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, StarIcon as SolidStarIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { mutate } from 'swr';
 
-const PromptView = ({ id, accessToken }: any) => {
+const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
 
     const { prompt, isLoading, isError } = usePrompt({ id, accessToken });
 
@@ -64,10 +64,8 @@ const PromptView = ({ id, accessToken }: any) => {
         });
         mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
         await res.json();
-        setEditMode(false);
+        onSelectedPromptChange(event, null);
     };
-
-
 
     if (editMode) {
         return (
@@ -100,8 +98,8 @@ const PromptView = ({ id, accessToken }: any) => {
                     </div>
                     <div className="mx-auto space-x-4">
                         <button type="submit" className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 py-2 px-4 rounded inline-flex items-center">
-                            <PlusCircleIcon className="w-5 h-5 text-white mr-1" />
-                            <span>Create</span>
+                            <CheckCircleIcon className="w-5 h-5 text-white mr-1" />
+                            <span>Submit</span>
                             </button>
                         <button onClick={handleCancel} className="mt-5 rounded-md outline outline-offset-0 outline-1 hover:bg-gray-600 py-2 px-4 rounded inline-flex items-center">
                             <XCircleIcon className="w-5 h-5 text-white mr-1" />
