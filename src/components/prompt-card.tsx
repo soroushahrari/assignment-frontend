@@ -35,12 +35,12 @@ const PromptCard = (props: any) => {
 
 
     return (
-
         <div className="mt-2 space-y-4">
-            <button            
+            <button
                 onClick={onClick}
-                className="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
-                <div className="text-left rtl:text-right max-w-xs">
+                className="flex items-left flex-col w-full space-y-2 px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none"
+            >
+                <div className="flex text-left flex-row">
                     {
                         isHovered || favorite
                             ? <SolidStarIcon
@@ -54,10 +54,13 @@ const PromptCard = (props: any) => {
                                 onMouseLeave={handleMouseLeave}
                                 className="w-5 h-5 mr-1" />
                     }
-                    <h1 className="text-sm font-medium text-gray-700 mb-4 capitalize dark:text-white">{title}</h1>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{description}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(createdAt).toLocaleDateString()}</p>
+                    <h1 className="text-sm font-medium text-gray-700 mb-1 capitalize dark:text-white">
+                        {title}
+                    </h1>
                 </div>
+                <p className="text-left text-xs text-gray-500 dark:text-gray-400 truncate">
+                    {description}
+                </p>
             </button>
         </div>
     );
