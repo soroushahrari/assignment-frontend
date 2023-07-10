@@ -58,7 +58,8 @@ const PromptView = ({ id, accessToken }: any) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt/${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
         });
         mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
