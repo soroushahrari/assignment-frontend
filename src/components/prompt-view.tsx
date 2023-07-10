@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CheckCircleIcon, StarIcon as SolidStarIcon, StarIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { mutate } from 'swr';
 import Loading from './loading';
+import { IPrompt } from '@/interfaces/prompt.interface';
 
 const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
 
@@ -21,8 +22,9 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
         return <Loading />;
     }
 
+    const promptData: IPrompt = prompt.data;
 
-    const { title, description, favorite, createdAt, lastModifiedAt } = prompt.data;
+    const { title, description, favorite, promptText, variable, createdAt, lastModifiedAt } = promptData;
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -137,12 +139,14 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
         <div className="mx-auto self-center w-full max-w-2xl">
             <h1 className="text-4xl font-medium">{title}</h1>
             <div className="max-w-prose break-words">
-                <p className="mt-3 text-stone-400">{description}</p>
+                <p>Description: <span className="mt-3 text-stone-400">{description}</span></p>
             </div>
-            <p className="mt-3 text-stone-400">Created At: {new Date(createdAt).toLocaleDateString()}</p>
+            <p>Text: <span className="mt-3 text-stone-400">{promptText}</span></p>
+            <p>Variables: <span className="mt-3 text-stone-400">{variable.join(' , ')}</span></p>
+            <p>Created At: <span className="mt-3 text-stone-400">{new Date(createdAt).toLocaleDateString()}</span></p>
             {
                 lastModifiedAt
-                    ? <p className="mt-3 text-stone-400">Last Modified At: {new Date(lastModifiedAt).toLocaleDateString()}</p>
+                    ? <p>Last Modified At: <span className="mt-3 text-stone-400">{new Date(lastModifiedAt).toLocaleDateString()}</span></p>
                     : null
             }
             <div className="mx-auto space-x-4">
