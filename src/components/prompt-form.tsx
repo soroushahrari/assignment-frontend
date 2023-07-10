@@ -25,7 +25,7 @@ const PromptForm = (props: any) => {
     };
 
     return (
-        <div className="mx-auto self-center w-full max-w-lg">
+        <div className="mx-auto self-center w-full max-w-2xl">
             <h1 className="text-4xl font-medium">New prompt</h1>
             <p className="mt-3 text-stone-400">Fill the fields below and create a new prompt</p>
             <form onSubmit={handleSubmit} className="mt-10">

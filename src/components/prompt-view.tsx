@@ -87,7 +87,7 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
 
     if (editMode) {
         return (
-            <div className="mx-auto self-center w-full max-w-lg">
+            <div className="mx-auto self-center w-full max-w-2xl">
                 <h1 className="text-4xl font-medium">Edit prompt</h1>
                 <p className="mt-3 text-stone-400">Edit the prompt by changing the fields below</p>
                 <form onSubmit={handleSubmit} className="mt-10">
