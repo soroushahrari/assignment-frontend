@@ -1,7 +1,7 @@
 import { usePrompt } from '@/hooks/use-prompt';
-import { PencilIcon, TrashIcon,  } from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon, } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { CheckCircleIcon, StarIcon as SolidStarIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, StarIcon as SolidStarIcon, StarIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { mutate } from 'swr';
 
 const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
@@ -40,6 +40,24 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
         await res.json();
         setEditMode(false);
     };
+
+    const handleFavorite = async (event: any, id: any) => {
+        event.preventDefault();
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                favorite: !favorite
+            })
+        });
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt/${id}`, { ...prompt, favorite: !favorite }, false);
+        await res.json();
+    };
+
 
     const handleEditmode = (title: string, description: string) => {
         setNewtitle(title);
@@ -100,11 +118,11 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
                         <button type="submit" className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 py-2 px-4 rounded inline-flex items-center">
                             <CheckCircleIcon className="w-5 h-5 text-white mr-1" />
                             <span>Submit</span>
-                            </button>
+                        </button>
                         <button onClick={handleCancel} className="mt-5 rounded-md outline outline-offset-0 outline-1 hover:bg-gray-600 py-2 px-4 rounded inline-flex items-center">
                             <XCircleIcon className="w-5 h-5 text-white mr-1" />
                             <span>Cancel</span>
-                            </button>
+                        </button>
                     </div>
                 </form>
 
@@ -115,13 +133,6 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
 
     return (
         <div className="mx-auto self-center w-full max-w-2xl">
-            {
-                favorite
-                    ? <SolidStarIcon
-                        className="w-5 h-5 text-yellow-500 mr-1"
-                    />
-                    : null
-            }
             <h1 className="text-4xl font-medium">{title}</h1>
             <div className="max-w-prose break-words">
                 <p className="mt-3 text-stone-400">{description}</p>
@@ -133,11 +144,28 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
                     : null
             }
             <div className="mx-auto space-x-4">
-                <button onClick={() => handleEditmode(title, description)} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 font-bold py-2 px-4 rounded inline-flex items-center">
+                {favorite ? (
+                    <button
+                        onClick={(e) => handleFavorite(e, id)}
+                        className="mt-5 rounded-md bg-yellow-500 border-yellow-500 border hover:bg-transparent hover:border hover:border-stone-200 py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <StarIcon className="h-5 w-5 inline-block m-auto" />
+                    </button>
+                ) : (
+                    <button
+                        onClick={(e) => handleFavorite(e, id)}
+                        className="mt-5 rounded-md border-stone-200 border hover:bg-yellow-500 hover:border hover:border-yellow-500 py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <StarIcon className="h-5 w-5 inline-block m-auto" />
+                    </button>
+                )}
+
+
+                <button onClick={() => handleEditmode(title, description)} className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 py-2 px-4 rounded inline-flex items-center">
                     <PencilIcon className="h-5 w-5 inline-block mr-2" />
                     <span>Edit</span>
                 </button>
-                <button onClick={handleDelete} className="mt-5 rounded-md bg-red-600 hover:bg-red-950 font-bold py-2 px-4 rounded inline-flex items-center">
+                <button onClick={handleDelete} className="mt-5 rounded-md bg-red-600 hover:bg-red-950 py-2 px-4 rounded inline-flex items-center">
                     <TrashIcon className="h-5 w-5 inline-block mr-2" />
                     <span>Delete</span>
                 </button>
