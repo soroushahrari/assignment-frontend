@@ -13,6 +13,7 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
     const [editMode, setEditMode] = useState(false);
     const [newTitle, setNewtitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
+    const [newPromptText, setNewPromptText] = useState('');
 
     if (isError) {
         return <div>Error loading prompt</div>;
@@ -36,7 +37,8 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
             },
             body: JSON.stringify({
                 title: newTitle,
-                description: newDescription
+                description: newDescription,
+                promptText: newPromptText
             })
         });
         mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
@@ -65,12 +67,14 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
     const handleEditmode = (title: string, description: string) => {
         setNewtitle(title);
         setNewDescription(description);
+        setNewPromptText(promptText);
         setEditMode(true);
     };
 
     const handleCancel = () => {
         setNewtitle(title);
         setNewDescription(description);
+        setNewPromptText(promptText);
         setEditMode(false);
     };
 
@@ -109,13 +113,24 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
                         <div className="relative z-0 col-span-2">
                             <textarea
                                 name="newDescription"
-                                rows={5}
+                                rows={2}
                                 required
                                 onChange={(e) => setNewDescription(e.target.value)}
                                 defaultValue={description}
                                 className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-stone-200 focus:border-sky-600 focus:outline-none focus:ring-0" placeholder=" ">
                             </textarea>
                             <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-sky-600 peer-focus:dark:text-sky-500">Description</label>
+                        </div>
+                        <div className="relative z-0 col-span-2">
+                            <textarea
+                                name="newPromptText"
+                                rows={3}
+                                required
+                                onChange={(e) => setNewPromptText(e.target.value)}
+                                defaultValue={promptText}
+                                className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-stone-200 focus:border-sky-600 focus:outline-none focus:ring-0" placeholder=" ">
+                            </textarea>
+                            <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-sky-600 peer-focus:dark:text-sky-500">Text</label>
                         </div>
                     </div>
                     <div className="mx-auto space-x-4">

@@ -6,6 +6,7 @@ const PromptForm = (props: any) => {
     const { accessToken } = props;
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [promptText, setPromptText] = useState('');
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -15,10 +16,11 @@ const PromptForm = (props: any) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify({ title, description }),
+            body: JSON.stringify({ title, description, promptText }),
         }).then((res) => {
             setTitle('');
             setDescription('');
+            setPromptText('');
             mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
             return res.json();
         });
@@ -43,13 +45,24 @@ const PromptForm = (props: any) => {
                     <div className="relative z-0 col-span-2">
                         <textarea
                             name="description"
-                            rows={5}
+                            rows={2}
                             required
                             onChange={(e) => setDescription(e.target.value)}
                             value={description}
                             className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-stone-200 focus:border-sky-600 focus:outline-none focus:ring-0" placeholder=" ">
                         </textarea>
                         <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-sky-600 peer-focus:dark:text-sky-500">Description</label>
+                    </div>
+                    <div className="relative z-0 col-span-2">
+                        <textarea
+                            name="promptText"
+                            rows={3}
+                            required
+                            onChange={(e) => setPromptText(e.target.value)}
+                            value={promptText}
+                            className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-stone-200 focus:border-sky-600 focus:outline-none focus:ring-0" placeholder=" ">
+                        </textarea>
+                        <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-sky-600 peer-focus:dark:text-sky-500">Text</label>
                     </div>
                 </div>
                 <button type="submit" className="mt-5 rounded-md bg-sky-600 hover:bg-sky-950 py-2 px-4 rounded inline-flex items-center">
