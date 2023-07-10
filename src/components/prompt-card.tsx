@@ -18,7 +18,6 @@ const PromptCard = (props: any) => {
 
     const handleFavorite = async (event: any) => {
         event.preventDefault();
-        console.log(accessToken)
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt/${id}`, {
             method: 'PATCH',
             headers: {
