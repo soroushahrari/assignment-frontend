@@ -5,6 +5,7 @@ import PromptsList from '@/components/prompts-list';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Loading from '@/components/loading';
 
 export default function Home(props: any) {
 
@@ -20,7 +21,7 @@ export default function Home(props: any) {
   });
 
 
-  if (status === 'loading') return <div>Loading...</div>;
+  if (status === 'loading') return <Loading />;
 
   if (!session) {
     router.push('/login');
@@ -35,12 +36,12 @@ export default function Home(props: any) {
     <aside className="flex bg-gradient-to-r from-indigo-950 ...">
       <PromptsList onSelectedPromptChange={onSelectedPromptChange} accessToken={session.accessToken} />
       {selectedPrompt != null
-        ? <PromptView 
-        id={selectedPrompt} 
-        accessToken={session.accessToken} 
-        onSelectedPromptChange={onSelectedPromptChange}
+        ? <PromptView
+          id={selectedPrompt}
+          accessToken={session.accessToken}
+          onSelectedPromptChange={onSelectedPromptChange}
         />
-        : <PromptForm accessToken={session.accessToken}/>
+        : <PromptForm accessToken={session.accessToken} />
       }
     </aside>
   )

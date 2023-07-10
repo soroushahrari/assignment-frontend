@@ -4,6 +4,7 @@ import { useState } from 'react';
 import PromptCard from './prompt-card';
 import { usePrompts } from '@/hooks/use-prompts';
 import { signOut } from 'next-auth/react';
+import Loading from './loading';
 
 const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
     const { prompts, isLoading, isError } = usePrompts({ accessToken});
@@ -53,7 +54,7 @@ const PromptsList = ({ onSelectedPromptChange, accessToken }: any) => {
         }
     };
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) return <Loading />
     if (isError) return <div>Error</div>
 
     return (

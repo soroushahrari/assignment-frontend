@@ -3,6 +3,7 @@ import { PencilIcon, TrashIcon, } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { CheckCircleIcon, StarIcon as SolidStarIcon, StarIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { mutate } from 'swr';
+import Loading from './loading';
 
 const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
 
@@ -17,7 +18,7 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
     }
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
 
