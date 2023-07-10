@@ -84,6 +84,7 @@ const PromptView = ({ id, accessToken, onSelectedPromptChange }: any) => {
         mutate(`${process.env.NEXT_PUBLIC_API_URL}/prompt`);
         await res.json();
         onSelectedPromptChange(event, null);
+        setEditMode(false);
     };
 
     if (editMode) {
